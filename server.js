@@ -2,11 +2,11 @@
 require('dotenv').config();
 var prerender = require('./lib');
 var prerenderOpts = {
-    chromeFlags: ['--no-sandbox', '--headless', '--disable-gpu', '--hide-scrollbars'],
+    chromeFlags: ['--no-sandbox', '--headless', '--disable-gpu', '--remote-debugging-port=9222', '--hide-scrollbars'],
 }
 if (process.env.CHROME_LOCATION) prerenderOpts.chromeLocation = process.env.CHROME_LOCATION;
 
-var server = prerender();
+var server = prerender(prerenderOpts);
 
 server.use(require('prerender-memory-cache'));
 server.use(prerender.sendPrerenderHeader());
